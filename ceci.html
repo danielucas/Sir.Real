@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+<title>Sir. Real, inc. | accueil! benvenuto! welcome!</title>
+
+<style>
+	body {
+		text-align: center;
+		margin:0;
+		padding: 0;
+	}
+	.mag {
+		margin-top: 25%;
+	}
+	
+	.mag:hover {
+		-webkit-transform: matrix(1.5, .4, 0, 1, .5, 33);
+		-webkit-box-shadow: 10px 5px 5px green;
+	}
+	
+	a:hover:after {
+		content: attr(title);
+		display: block;
+		position: absolute;
+		top: 15em;
+		width: 100%;
+		text-align: center;
+		font-size: 1em;
+		text-transform: uppercase;
+		color: black;
+		text-decoration: none;
+	}
+	a[title="ciao!"] {
+		color: black;
+		letter-spacing: 1em;
+		margin-top: 20px;
+		font-size: 9px;
+		font-style: italic;
+	}
+	
+	.surrealism {
+		position: fixed;
+		z-index: 10;
+		top: -100%;
+		left: -100%;
+		-webkit-animation: 20s scarydoor infinite alternate 10s;
+}
+ 
+@-webkit-keyframes scarydoor {
+  1% {left: -100%; top: -300%; }
+  9% {left: -100%; top: -300%; }
+  10% { left: 0px; top: 20%;}
+  11% {left: -100%; top: -300%; }
+ 
+  21% {left: -100%; top: -300%; }
+  22% { left: 200px; top: 20%;}
+  23% {left: -100%; top: -300%; }
+  24% {left: 250px; top: 20%;}
+  25% {left: -100%; top: -300%; }
+  26% {left: 200px; top: 18%;}  
+  27% {left: -100%; top: -300%; }
+
+  35% {left: -100%; top: -300%; }
+  36% {left: 800px; top: 8%;}  
+  37% {left: -100%; top: -300%; }
+  
+  55% {left: -100%; top: -300%; }
+  56% {left: -20px; top: 35%;}  
+  57% {left: -100%; top: -300%; }
+
+  65% {left: -100%; top: -300%; }
+  66% {left: 820px; top: 5%;}  
+  67% {left: -100%; top: -300%; }
+  
+  75% {left: -100%; top: -300%; }
+  76% {left: -20px; top: 15%;}  
+  77% {left: -100%; top: -300%; }
+  78% {left: -80px; top: 25%;}  
+  79% {left: -100%; top: -300%; }
+  80% {left: 120px; top: 26%;}  
+  81% {left: -100%; top: -300%; }
+
+  
+  95% {left: -100%; top: -300%; }
+  96% {left: -20px; top: -1%; width: 100%; }  
+  97% {left: -100%; top: -300%; width: auto; }
+}
+
+</style>
+</head>
+<body>
+
+<img src="sirs/magritte_what_is_surrealism_1934.jpg" class="mag">
+<h2>ce n'est pas un site.</h2>
+<a href="beard.html" title="ciao!">Excusez-moi ?</a><br><br>
+<a href="ember.html">&darr;</a>
+
+<a href="four.html"><img src="sirs/surrealism.jpg" class="surrealism"></a>
+</body>
+</html>

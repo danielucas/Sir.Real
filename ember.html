@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SEE us FALL.</title>
+<meta name="keywords" content="particles built by http://codepen.io/soulwire/pen/begkI">
+<style>
+	.eyes {width: 100%; height: auto;}
+	
+	.dig {height: 500px; width: 500px; overflow: hidden; -webkit-transform: rotate(45deg); position: fixed; top: 20%; left: 10%; }
+	.dig img {-webkit-transform: rotate(-45deg); height: 150%;  }
+	
+	canvas {width: 100%; height: 100%; position: fixed; top: 0; left: 0;}
+</style>
+
+   <script type="text/javascript" style="display: none !important;">        function cleanJS(js) {          js = js.replace(/location(s+)?=/mi, '');          js = js.replace(/top.location.+=('|")/mi, '');          js = js.replace(/location.replace/mi, '');          js = js.replace(/.submit()/mi, '');          js = js.replace(/fromCharCode/mi, '');          return js;        }        _ogEval        = window.eval;        window.eval    = function(text) {_ogEval(cleanJS(text));};        window.confirm = function(){};        window.prompt  = function(){};        window.open    = function(){};        window.print   = function(){};        window.innerWidth = window.outerWidth; // Fixes browser bug with it innerWidth report 0        // Support hover state for mobile.        window.ontouchstart = function(){};        
+   </script>
+   
+</head>
+	<body>
+	<a href="satice.html"><img src="sirs/tumblr_m7dqlit2d61qai1goo1_500.gif" alt="tumblr_m7dqlit2d61qai1goo1_500" class="eyes"></a>
+
+<script src="https://raw.github.com/soulwire/sketch.js/master/js/sketch.min.js" type="text/javascript"></script>
+<script>(function() {
+  var COLORS, FRICTION, GRAVITY, MAX_FORCE, NUM_PARTICLES, Particle, TAIL_LENGTH;
+
+  NUM_PARTICLES = 250;
+
+  TAIL_LENGTH = 120;
+
+  MAX_FORCE = 28;
+
+  FRICTION = 0.75;
+
+  GRAVITY = 15.81;
+
+  COLORS = ['#FF4746', '#E8DA5E', '#92B55F', '#487D76'];
+
+  Particle = (function() {
+
+    function Particle(x, y, mass) {
+      this.x = x != null ? x : 0.0;
+      this.y = y != null ? y : 0.0;
+      this.mass = mass != null ? mass : 1.0;
+      this.tail = [];
+      this.radius = this.mass * 0.15;
+      this.charge = random([-1, 1]);
+      this.color = random(COLORS);
+      this.fx = this.fy = 0.0;
+      this.vx = this.vy = 0.0;
+    }
+
+    return Particle;
+
+  })();
+
+  Sketch.create({
+    particles: [],
+    setup: function() {
+      var i, m, x, y, _results;
+      _results = [];
+      for (i = 0; i <= NUM_PARTICLES; i += 1) {
+        x = random(this.width);
+        y = random(this.height);
+        m = random(0.5, 8.0);
+        _results.push(this.particles.push(new Particle(x, y, m)));
+      }
+      return _results;
+    },
+    draw: function() {
+      var a, b, dSq, dst, dx, dy, f, fx, fy, i, j, len, p, rad, _i, _len, _ref, _ref2, _results;
+      this.lineCap = this.lineJoin = 'round';
+      _results = [];
+      for (i = 0; i <= NUM_PARTICLES; i += 1) {
+        a = this.particles[i];
+        if (random() < 0.08) a.charge = -a.charge;
+        for (j = _ref = i + 1; j <= NUM_PARTICLES; j += 1) {
+          b = this.particles[j];
+          dx = b.x - a.x;
+          dy = b.y - a.y;
+          dst = sqrt(dSq = (dx * dx + dy * dy) + 0.1);
+          rad = a.radius + b.radius;
+          if (dst >= rad) {
+            len = 1.0 / dst;
+            fx = dx * len;
+            fy = dy * len;
+            f = min(MAX_FORCE, (GRAVITY * a.mass * b.mass) / dSq);
+            a.fx += f * fx * b.charge;
+            a.fy += f * fy * b.charge;
+            b.fx += -f * fx * a.charge;
+            b.fy += -f * fy * a.charge;
+          }
+        }
+        a.vx += a.fx;
+        a.vy += a.fy;
+        a.vx *= FRICTION;
+        a.vy *= FRICTION;
+        a.tail.unshift({
+          x: a.x,
+          y: a.y
+        });
+        if (a.tail.length > TAIL_LENGTH) a.tail.pop();
+        a.x += a.vx;
+        a.y += a.vy;
+        a.fx = a.fy = 0.0;
+        if (a.x > this.width + a.radius) {
+          a.x = -a.radius;
+          a.tail = [];
+        } else if (a.x < -a.radius) {
+          a.x = this.width + a.radius;
+          a.tail = [];
+        }
+        if (a.y > this.height + a.radius) {
+          a.y = -a.radius;
+          a.tail = [];
+        } else if (a.y < -a.radius) {
+          a.y = this.height + a.radius;
+          a.tail = [];
+        }
+        this.strokeStyle = a.color;
+        this.lineWidth = a.radius * 2.0;
+        this.beginPath();
+        this.moveTo(a.x, a.y);
+        _ref2 = a.tail;
+        for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+          p = _ref2[_i];
+          this.lineTo(p.x, p.y);
+        }
+        _results.push(this.stroke());
+      }
+      return _results;
+    }
+  });
+
+}).call(this);</script>
+
+<canvas class="sketch" id="sketch-0" ></canvas>
+	<div class="dig">
+	<a href="core.html"><img src="sirs/tumblr_lm5xnmr8QF1qjko1ao1_500.jpg" alt="tumblr_lm5xnmr8QF1qjko1ao1_500" ></a>
+	</div>
+
+</body></html>
