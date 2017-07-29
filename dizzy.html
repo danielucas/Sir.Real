@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WebGL Scroll Spiral | Demo 2 | Codrops</title>
+	<script>document.documentElement.className = 'js';</script>
+	<style>
+		.content--main {
+			min-height: 500vh;
+		}
+
+		#webgl {
+			position: fixed;
+			z-index: -1;
+			top: 0;
+			left: 0;
+			display: block;
+			width: 100vw;
+			height: 100vh;
+		}
+
+		.link-one {
+			position: absolute;
+			top: 250vh;
+			left: 40vw;
+			width: 25vw;
+			z-index: 10;
+		}
+
+		.link-two {
+			position: absolute;
+			top: 400vh;
+			left: 10px;
+			width: 200px;
+		}
+
+		.img-fluid {
+			width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+<body class="demo-3 loading">
+	<a href="ticktock.html" class="link-one"><img src="sirs/magritte_kiss_TOO_BIG.gif" alt="" class="img-fluid"></a>
+	<a href="hologram.html" class="link-two"><img src="sirs/giphy.gif" alt="" class="img-fluid"></a>
+	<canvas id="webgl"></canvas>
+	<main>
+		<section class="content content--main"></section>
+	</main>
+	<script src="scripts/regl.min.js"></script>
+	<script type="x-shader/x-fragment" id="fragmentShader">
+	#define TWO_PI 6.2831853072
+	#define PI 3.14159265359
+
+	precision highp float;
+
+	uniform float globaltime;
+	uniform vec2 resolution;
+	uniform float aspect;
+	uniform float scroll;
+	uniform float velocity;
+	uniform sampler2D texture;
+
+	const float timescale = 0.1;
+	const float twist = 0.5;
+
+	vec2 rotate(vec2 v, float angle) {
+		float c = cos(angle);
+		float s = sin(angle);
+		return v * mat2(c, -s, s, c);
+	}
+
+	float nsin(float value) {
+		return sin(value * TWO_PI) * 0.5 + 0.5;
+	}
+
+	void main(void) {
+		float time = globaltime * timescale;
+		vec2 center = vec2(sin(TWO_PI * time * 0.2), cos(TWO_PI * time * 0.2)) * nsin(time * 0.3) * 0.5;
+		vec2 tx = (gl_FragCoord.xy / resolution.xy - 0.5 - center) * vec2(aspect, 1.0);
+		float len = 1.0 - length(tx);
+		float zoom = 0.0 + scroll - len * 2.0 * (1.0 - scroll) + len * velocity;
+
+		vec4 imgColor = texture2D(
+			texture,
+			rotate(
+				(tx + center) * vec2(1.0, -1.0) * zoom,
+				twist * TWO_PI * nsin(len + time) * scroll + time
+			) + 0.5
+		);
+
+		gl_FragColor = imgColor;
+	}
+	</script>
+	<script src="scripts/dizzy.js"></script>
+</body>
+</html>
