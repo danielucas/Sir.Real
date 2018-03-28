@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>SWIMMINGLY</title>
+		<meta name="description" content="Some liquid distortion effects applied to an image slideshow using canvas, PixiJS and Greensock" />
+		<meta name="keywords" content="web development, canvas, distortion, liquid, effect, slideshow, javascript" />
+		<meta name="author" content="Yannis Yannakopoulos for Codrops" />
+		<link rel="shortcut icon" href="favicon.ico">
+		<style>
+			canvas {
+				display: block;
+				position: relative;
+				left: 0;
+				top: 0;
+				width: 100%;
+			}	
+
+			body {
+				background-image: url('sirs/magritte_kiss_TOO_BIG.gif');
+				background-size: cover;
+				padding-bottom: 100px;
+			}	
+
+			h1 {
+				position: absolute;
+				top: 90vh;
+				left: 20%;
+			}	
+
+			h2 {
+				position: absolute;
+				left: 40%;
+				top: 145vh;
+			}
+
+			h2 + h2 {
+				top: 165vh;
+			}
+		</style>
+		<script>document.documentElement.className = 'js';</script>
+	</head>
+	<body class="demo-5">
+
+		<main class="site-wrapper">
+
+			<div class="water-image" id="one" style="width: 400px; display: inline-block; vertical-align: top">
+				<img src="sirs/andre-breton.jpg" data-container=".site-wrapper" class="slide-item__image" style="width: 100%; height: auto; display: none">
+			</div>
+
+			<div class="water-image" id="two" style="margin-bottom: 100vh; top: 10%; left: 10%; position: absolute; transform: translateY(20%); width: 80%;  display: inline-block;">
+				<img src="sirs/giphy-1.gif" data-container=".new" class="slide-item__image" style="display: none">
+			</div>
+
+			<h1><a href="DAgLItch.html">OOOH. I LOVE YOU SO.</a></h1>
+			<h2><a href="drumpf.php">But why I love you</a></h2>
+			<h2><a href="dada.html">I'll never know</a></h2>
+			
+		</main>
+
+		<script src="scripts/pixi.min.js"></script>
+		<script src="scripts/TweenMax.min.js"></script>
+		<script src="scripts/main5.js"></script>
+		<script>
+			
+			var spriteImages = document.querySelectorAll( '.slide-item__image' );
+
+			for ( var i = 0; i < spriteImages.length; i++ ) {
+				var spriteImagesSrc = [];
+				var img 			= spriteImages[i];
+				var thisParent 		= spriteImages[i].parentNode;
+
+				spriteImagesSrc.push( img.getAttribute('src' ) );
+
+				var initCanvasSlideshow = new CanvasSlideshow({
+					stage: thisParent,
+					stageWidth: img.width,
+					stageHeight: img.height,
+					sprites: spriteImagesSrc,
+					displacementImage: 'img/clouds.jpg',
+					fullScreen: true,
+					autoPlay: true,
+					autoPlaySpeed: [2, 5],
+					displaceScale: [8000, 15000],
+					interactive: false,
+					displaceAutoFit: true,
+					interactionEvent: 'hover', // 'click', 'hover', 'both' 
+					dispatchPointerOver: true
+				});
+
+			}
+      
+		</script>
+	</body>
+</html>
